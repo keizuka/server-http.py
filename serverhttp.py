@@ -1,14 +1,15 @@
 #coding:utf-8
 
 import http.server
-import socketserver
+#import socketserver
 
 
 port = 80
 address = ("", port)
-
-handler = http.server.SimpleHTTPRequestHandler
-httpd = socketserver.TCPServer(address, handler)
+server = http.server.HTTPServer
+handler = http.server.CGIHTTPRequestHandler
+handler.cgi_directories = ["/"]
+httpd = server(address, handler)
 
 print("serverhttp.py start on port{port}")
 httpd.serve_forever()
